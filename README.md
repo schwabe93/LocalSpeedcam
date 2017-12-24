@@ -13,7 +13,7 @@ Add a new feed:
 
 How to use:
 
-- Build and install APK
+- Build and install APK (If you want to skip the build, just use the latest apk from the apk folder)
 - Enable Developer settings in Android Auto
 - Enable 'Unknown sources' checkbox
 - Connect phone to AA Head Unit and select the OEM tab
