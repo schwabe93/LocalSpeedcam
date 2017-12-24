@@ -67,12 +67,19 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
         ListMenuAdapter mainMenu = new ListMenuAdapter();
         mainMenu.setCallbacks(mMenuCallbacks);
 
+        mainMenu.addMenuItem("MENU_HOME", new MenuItem.Builder()
+                .setTitle(getString(R.string.menu_unlock_phone))
+                .setIconResId(R.drawable.ic_lock_open_black_24dp)
+                .setType(MenuItem.Type.ITEM)
+                .build());
         mainMenu.addMenuItem("MENU_FEEDS", new MenuItem.Builder()
-                .setTitle(getString(R.string.menu_debug_title))
+                .setTitle(getString(R.string.menu_feeds_label))
+                .setIconResId(R.drawable.ic_rss_feed_black_24dp)
                 .setType(MenuItem.Type.SUBMENU)
                 .build());
         mainMenu.addMenuItem("MENU_REFRESH", new MenuItem.Builder()
                 .setTitle(getString(R.string.menu_refresh_label))
+                .setIconResId(R.drawable.ic_refresh_black_24dp)
                 .setType(MenuItem.Type.ITEM)
                 .build());
 
@@ -112,6 +119,7 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
             mainMenu.addMenuItem("APP_START_SHORTCUT", new MenuItem.Builder()
                     .setTitle(apps[0])
                     .setType(MenuItem.Type.ITEM)
+                    .setIconResId(R.drawable.ic_launch_black_24dp)
                     .build());
 
         }catch(Exception e){
@@ -146,6 +154,13 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
             }
             if("MENU_REFRESH".equals(name)){
                 new NetworkReaderTask().execute(MainCarActivity.this, getCurrentTrafficModule());
+                return;
+            }
+            if("MENU_HOME".equals(name)){
+                Intent startMain = new Intent(Intent.ACTION_MAIN);
+                startMain.addCategory(Intent.CATEGORY_HOME);
+                startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(startMain);
                 return;
             }
             if("APP_START_SHORTCUT".equals(name)){
