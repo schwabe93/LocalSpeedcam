@@ -15,6 +15,7 @@ public abstract class TrafficModule {
         List<TrafficModule> modules = new ArrayList<>();
         modules.add(new RadioRT1());
         modules.add(new AntenneBayern());
+        modules.add(new HitRadioFFH());
         return modules;
     }
 
