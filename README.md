@@ -4,3 +4,6 @@ Dependencies:
 
 - https://github.com/martoreto/aauto-sdk (The piece of code which made OEM apps for AA possible in the first place - Good Job!)
 - JSoup
+
+
+![alt text](https://raw.githubusercontent.com/nerone-github/LocalSpeedcam/master/images/localspeed.png)
