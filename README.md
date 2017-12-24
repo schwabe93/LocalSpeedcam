@@ -18,7 +18,7 @@
 
 ## How to use:
 
-- Build and install APK (If you want to skip the build,[download APK here](https://github.com/nerone-github/LocalSpeedcam/raw/master/apk/localspeedcam-master.apk)
+- Build and install APK (If you want to skip the build, [download APK here](https://github.com/nerone-github/LocalSpeedcam/raw/master/apk/localspeedcam-master.apk).
 - Enable Developer settings in Android Auto
 - Enable 'Unknown sources' checkbox
 - Connect phone to AA Head Unit and select the OEM tab
