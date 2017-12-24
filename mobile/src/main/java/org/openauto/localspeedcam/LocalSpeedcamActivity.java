@@ -1,7 +1,7 @@
 package org.openauto.localspeedcam;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -11,7 +11,7 @@ import org.openauto.localspeedcam.modules.TrafficModule;
 import org.openauto.localspeedcam.utils.IOHandler;
 import org.openauto.localspeedcam.utils.UIUtils;
 
-public class LocalSpeedcamActivity extends Activity implements AsyncResponse {
+public class LocalSpeedcamActivity extends AppCompatActivity implements AsyncResponse {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

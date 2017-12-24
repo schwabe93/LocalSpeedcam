@@ -3,18 +3,12 @@ package org.openauto.localspeedcam;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.openauto.localspeedcam.modules.TrafficModule;
-
-import java.net.URL;
 
 public class NetworkReaderTask extends AsyncTask<Object, String, String> {
 
-	AsyncResponse activity;
-    TrafficModule trafficModule;
+	private AsyncResponse activity;
+	private TrafficModule trafficModule;
 
 	@Override
 	protected void onPostExecute(String result) {
@@ -29,7 +23,7 @@ public class NetworkReaderTask extends AsyncTask<Object, String, String> {
 			trafficModule = (TrafficModule) objects[1];
 			return trafficModule.getFeedContent();
 		}catch(Exception e){
-			e.printStackTrace();
+			Log.e("LocalSpeedcam",Log.getStackTraceString(e));
 		}
 
 		return null;

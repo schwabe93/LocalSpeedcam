@@ -18,32 +18,29 @@ public class NotificationHandler {
 
     private void showTestNotification(Context context) {
         CarToast.makeText(context, "Will show notification in 5 seconds", Toast.LENGTH_SHORT).show();
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Notification notification = new NotificationCompat.Builder(context)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Test notification")
-                        .setContentText("This is a test notification")
-                        .setAutoCancel(true)
-                        .extend(new CarNotificationExtender.Builder()
-                                .setTitle("Test")
-                                .setSubtitle("This is a test notification")
-                                .setActionIconResId(R.mipmap.ic_launcher)
-                                .setThumbnail(CarUtils.getCarBitmap(context,
-                                        R.mipmap.ic_launcher, R.color.car_primary, 128))
-                                .setShouldShowAsHeadsUp(true)
-                                .build())
-                        .build();
+        mHandler.postDelayed(() -> {
+            Notification notification = new NotificationCompat.Builder(context)
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle("Test notification")
+                    .setContentText("This is a test notification")
+                    .setAutoCancel(true)
+                    .extend(new CarNotificationExtender.Builder()
+                            .setTitle("Test")
+                            .setSubtitle("This is a test notification")
+                            .setActionIconResId(R.mipmap.ic_launcher)
+                            .setThumbnail(CarUtils.getCarBitmap(context,
+                                    R.mipmap.ic_launcher, R.color.car_primary, 128))
+                            .setShouldShowAsHeadsUp(true)
+                            .build())
+                    .build();
 
-                NotificationManager notificationManager =
-                        (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-                notificationManager.notify(MainCarActivity.class.getSimpleName(), TEST_NOTIFICATION_ID, notification);
+            NotificationManager notificationManager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.notify(MainCarActivity.class.getSimpleName(), TEST_NOTIFICATION_ID, notification);
 
-                CarNotificationSoundPlayer soundPlayer = new CarNotificationSoundPlayer(
-                        context, R.raw.bubble);
-                soundPlayer.play();
-            }
+            CarNotificationSoundPlayer soundPlayer = new CarNotificationSoundPlayer(
+                    context, R.raw.bubble);
+            soundPlayer.play();
         }, 5000);
     }
 }
