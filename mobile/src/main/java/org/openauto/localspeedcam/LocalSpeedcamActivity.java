@@ -22,6 +22,8 @@ public class LocalSpeedcamActivity extends Activity implements AsyncResponse {
         Spinner feedSpinner = findViewById(R.id.feed_spinner);
         Button feed_refresh_button = findViewById(R.id.feed_refresh_button);
         Button appstart_button = findViewById(R.id.appstart_button);
+        EditText appstart_title = findViewById(R.id.appstart_title);
+        EditText appstart_package = findViewById(R.id.appstart_package);
 
         feed_refresh_button.setOnClickListener(view -> {
             TrafficModule selectedModule = (TrafficModule)feedSpinner.getSelectedItem();
@@ -30,13 +32,20 @@ public class LocalSpeedcamActivity extends Activity implements AsyncResponse {
         });
 
         appstart_button.setOnClickListener(view -> {
-            EditText appstart_title = findViewById(R.id.appstart_title);
-            EditText appstart_package = findViewById(R.id.appstart_package);
             String appStartConf = appstart_title.getText().toString() + "|" + appstart_package.getText().toString();
             ioHandler.saveObject(appStartConf, "appstart.conf");
+
+            UIUtils.showSnackbar(LocalSpeedcamActivity.this, "Package saved...", 500);
         });
 
         UIUtils.initializeSpinner(this, feedSpinner, TrafficModule.getFeedList());
+
+        String appStartConf = (String)ioHandler.readObject("appstart.conf");
+        if(appStartConf != null && !appStartConf.isEmpty()){
+            appstart_title.setText(appStartConf.split("\\|")[0]);
+            appstart_package.setText(appStartConf.split("\\|")[1]);
+            UIUtils.showSnackbar(LocalSpeedcamActivity.this, "Package loaded...", 500);
+        }
 
     }
 
