@@ -3,7 +3,7 @@ Android Auto compatible app for displaying local speedcam feeds e.g. from radio 
 Dependencies:
 
 - https://github.com/martoreto/aauto-sdk (The piece of code which made OEM apps for AA possible in the first place - Good Job!)
-- JSoup
+- JSoup (https://jsoup.org/) - HTML parser
 
 Additional features:
 
