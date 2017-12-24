@@ -1,22 +1,22 @@
-Android Auto compatible app for displaying local speedcam feeds e.g. from radio stations
+# Android Auto compatible app for displaying local speedcam feeds e.g. from radio stations
 
-Dependencies:
+## Dependencies:
 
 - https://github.com/martoreto/aauto-sdk (The piece of code which made OEM apps for AA possible in the first place - Good Job!)
 - JSoup (https://jsoup.org/) - HTML parser
 
-Additional features:
+## Additional features:
 
 - Unlock the phone during Android Auto - Please keep your eyes on the road at any time!
 - Add custom shortcut to launch other apps in background (e.g. other radar warner which is incompatible with AA)
 
-Add a new feed:
+## Add a new feed:
 
 - Create a new module in the org.openauto.localspeedcam.modules package
 - extend the abstract class TrafficModule.java
 - Add the feed in the TrafficModule.java static module list
 
-How to use:
+## How to use:
 
 - Build and install APK (If you want to skip the build, just use the latest apk from the apk folder)
 - Enable Developer settings in Android Auto
