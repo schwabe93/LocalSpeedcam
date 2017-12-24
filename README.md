@@ -5,6 +5,12 @@ Dependencies:
 - https://github.com/martoreto/aauto-sdk (The piece of code which made OEM apps for AA possible in the first place - Good Job!)
 - JSoup
 
+Add a new feed:
+
+- Create a new module in the org.openauto.localspeedcam.modules package
+- implement the interface TrafficModule.java
+- Add the feed in the MainCarActivity.java (This is subject to change, will try to Auto-Add all feeds found in modules)
+
 How to use:
 
 - Build and install APK
