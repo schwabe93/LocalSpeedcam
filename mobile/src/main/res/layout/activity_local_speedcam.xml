@@ -40,7 +40,7 @@
         android:id="@+id/appstart_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Set" />
+        android:text="Save shortcut settings" />
 
     <ScrollView
         android:layout_width="match_parent"
