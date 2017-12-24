@@ -18,6 +18,11 @@ public abstract class TrafficModule {
         return modules;
     }
 
+    @Override
+    public String toString() {
+        return getFeedTitle();
+    }
+
     public abstract String getFeedContent() throws IOException, JSONException;
     public abstract String getFeedTitle();
 }

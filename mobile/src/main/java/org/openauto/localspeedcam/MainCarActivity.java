@@ -3,6 +3,7 @@ package org.openauto.localspeedcam;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -19,16 +20,12 @@ import com.google.android.apps.auto.sdk.MenuItem;
 import com.google.android.apps.auto.sdk.StatusBarController;
 import com.google.android.apps.auto.sdk.notification.CarNotificationExtender;
 
-import org.openauto.localspeedcam.modules.AntenneBayern;
 import org.openauto.localspeedcam.modules.RadioRT1;
 import org.openauto.localspeedcam.modules.TrafficModule;
+import org.openauto.localspeedcam.utils.IOHandler;
 
 public class MainCarActivity extends CarActivity implements AsyncResponse {
     private static final String TAG = "MainCarActivity";
-
-    static final String MENU_REFRESH = "refresh";
-
-    static final String MENU_FEEDS = "MENU_FEEDS";
 
     private static final String FRAGMENT_DEMO = "demo";
     private static final String FRAGMENT_LOG = "log";
@@ -70,14 +67,16 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
         ListMenuAdapter mainMenu = new ListMenuAdapter();
         mainMenu.setCallbacks(mMenuCallbacks);
 
-        mainMenu.addMenuItem(MENU_FEEDS, new MenuItem.Builder()
+        mainMenu.addMenuItem("MENU_FEEDS", new MenuItem.Builder()
                 .setTitle(getString(R.string.menu_debug_title))
                 .setType(MenuItem.Type.SUBMENU)
                 .build());
-        mainMenu.addMenuItem(MENU_REFRESH, new MenuItem.Builder()
+        mainMenu.addMenuItem("MENU_REFRESH", new MenuItem.Builder()
                 .setTitle(getString(R.string.menu_refresh_label))
                 .setType(MenuItem.Type.ITEM)
                 .build());
+
+        addAppStartShortcut(mainMenu);
 
         ListMenuAdapter feedsMenu = new ListMenuAdapter();
         feedsMenu.setCallbacks(mMenuCallbacks);
@@ -89,7 +88,7 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
                     .build());
         }
 
-        mainMenu.addSubmenu(MENU_FEEDS, feedsMenu);
+        mainMenu.addSubmenu("MENU_FEEDS", feedsMenu);
 
         MenuController menuController = carUiController.getMenuController();
         menuController.setRootMenuAdapter(mainMenu);
@@ -101,6 +100,23 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
 
         getSupportFragmentManager().registerFragmentLifecycleCallbacks(mFragmentLifecycleCallbacks,
                 false);
+
+    }
+
+    private void addAppStartShortcut(ListMenuAdapter mainMenu){
+        try{
+            IOHandler ioHandler = new IOHandler(this);
+            String appStartConf = (String)ioHandler.readObject("appstart.conf");
+            String[] apps = appStartConf.split("\\|");
+
+            mainMenu.addMenuItem("APP_START_SHORTCUT", new MenuItem.Builder()
+                    .setTitle(apps[0])
+                    .setType(MenuItem.Type.ITEM)
+                    .build());
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
 
     }
 
@@ -128,8 +144,18 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
                     return;
                 }
             }
-            if(MENU_REFRESH.equals(name)){
+            if("MENU_REFRESH".equals(name)){
                 new NetworkReaderTask().execute(MainCarActivity.this, getCurrentTrafficModule());
+                return;
+            }
+            if("APP_START_SHORTCUT".equals(name)){
+                IOHandler ioHandler = new IOHandler(MainCarActivity.this);
+                String appStartConf = (String)ioHandler.readObject("appstart.conf");
+                String[] apps = appStartConf.split("\\|");
+                Intent launchIntent = getPackageManager().getLaunchIntentForPackage(apps[1]);
+                if (launchIntent != null) {
+                    startActivity(launchIntent);//null pointer check in case package name was not found
+                }
             }
         }
 
