@@ -8,8 +8,8 @@ Dependencies:
 Add a new feed:
 
 - Create a new module in the org.openauto.localspeedcam.modules package
-- implement the interface TrafficModule.java
-- Add the feed in the MainCarActivity.java (This is subject to change, will try to Auto-Add all feeds found in modules)
+- extend the abstract class TrafficModule.java
+- Add the feed in the TrafficModule.java static module list
 
 How to use:
 
