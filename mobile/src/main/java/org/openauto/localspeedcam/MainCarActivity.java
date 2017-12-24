@@ -29,8 +29,6 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
     static final String MENU_REFRESH = "refresh";
 
     static final String MENU_FEEDS = "MENU_FEEDS";
-    static final String MENU_RADIORT1 = "MENU_RADIORT1";
-    static final String MENU_ANTENNEBAYERN = "MENU_ANTENNEBAYERN";
 
     private static final String FRAGMENT_DEMO = "demo";
     private static final String FRAGMENT_LOG = "log";
@@ -83,14 +81,13 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
 
         ListMenuAdapter feedsMenu = new ListMenuAdapter();
         feedsMenu.setCallbacks(mMenuCallbacks);
-        feedsMenu.addMenuItem(MENU_RADIORT1, new MenuItem.Builder()
-                .setTitle(getString(R.string.menu_exlap_stats_log_title))
-                .setType(MenuItem.Type.ITEM)
-                .build());
-        feedsMenu.addMenuItem(MENU_ANTENNEBAYERN, new MenuItem.Builder()
-                .setTitle(getString(R.string.menu_test_notification_title))
-                .setType(MenuItem.Type.ITEM)
-                .build());
+
+        for(TrafficModule module : TrafficModule.getFeedList()){
+            feedsMenu.addMenuItem(module.getClass().getSimpleName(), new MenuItem.Builder()
+                    .setTitle(module.getFeedTitle())
+                    .setType(MenuItem.Type.ITEM)
+                    .build());
+        }
 
         mainMenu.addSubmenu(MENU_FEEDS, feedsMenu);
 
@@ -123,18 +120,16 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
     private final ListMenuAdapter.MenuCallbacks mMenuCallbacks = new ListMenuAdapter.MenuCallbacks() {
         @Override
         public void onMenuItemClicked(String name) {
-            switch (name) {
-                case MENU_ANTENNEBAYERN:
-                    MainCarActivity.this.currentTrafficModule = new AntenneBayern();
+
+            for(TrafficModule module : TrafficModule.getFeedList()){
+                if(name.equals(module.getClass().getSimpleName())){
+                    MainCarActivity.this.currentTrafficModule = module;
                     new NetworkReaderTask().execute(MainCarActivity.this, getCurrentTrafficModule());
-                    break;
-                case MENU_RADIORT1:
-                    MainCarActivity.this.currentTrafficModule = new RadioRT1();
-                    new NetworkReaderTask().execute(MainCarActivity.this, getCurrentTrafficModule());
-                    break;
-                case MENU_REFRESH:
-                    new NetworkReaderTask().execute(MainCarActivity.this, getCurrentTrafficModule());
-                    break;
+                    return;
+                }
+            }
+            if(MENU_REFRESH.equals(name)){
+                new NetworkReaderTask().execute(MainCarActivity.this, getCurrentTrafficModule());
             }
         }
 

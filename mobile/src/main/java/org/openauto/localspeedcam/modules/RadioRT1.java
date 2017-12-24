@@ -8,7 +8,7 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.URL;
 
-public class RadioRT1 implements TrafficModule{
+public class RadioRT1 extends TrafficModule{
 
     public String getFeedContent() throws IOException {
         StringBuilder builder = new StringBuilder();
@@ -32,7 +32,7 @@ public class RadioRT1 implements TrafficModule{
 
     @Override
     public String getFeedTitle() {
-        return "Radio RT1 Augsburg";
+        return "HITRADIO RT1 Augsburg";
     }
 
 

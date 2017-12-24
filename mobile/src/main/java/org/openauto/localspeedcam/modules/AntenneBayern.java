@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class AntenneBayern implements TrafficModule{
+public class AntenneBayern extends TrafficModule {
 
     private String formatSpeed(String speed){
         if(!speed.isEmpty()){
@@ -48,6 +48,6 @@ public class AntenneBayern implements TrafficModule{
 
     @Override
     public String getFeedTitle() {
-        return "Antenne Bayern";
+        return "Antenne Bayern - Wir lieben Bayern.";
     }
 }
