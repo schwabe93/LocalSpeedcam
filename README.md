@@ -23,6 +23,8 @@
 - Enable 'Unknown sources' checkbox
 - Connect phone to AA Head Unit and select the OEM tab
 
+![alt text](https://raw.githubusercontent.com/nerone-github/LocalSpeedcam/master/images/devsettings.png)
+
 ## Screenshots
 
 ![alt text](https://raw.githubusercontent.com/nerone-github/LocalSpeedcam/master/images/selector.png)
