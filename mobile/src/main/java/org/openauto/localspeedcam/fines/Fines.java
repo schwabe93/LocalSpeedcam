@@ -21,11 +21,13 @@ public class Fines {
 
     public static String CH_FINES = "Stand: 2017\n"+
             "1-5km/h 40CHF" + INNERORTS + AUSSERORTS + "\n" +
-            "6-10km/h 40CHF" + INNERORTS + "\n" +
-            "11-15km/h 40CHF" + INNERORTS + "\n" +
+            "6-10km/h 120CHF" + INNERORTS + ", 100CHF" + AUSSERORTS + "\n" +
+            "11-15km/h 250CHF" + INNERORTS + ", 160CHF" + AUSSERORTS + "\n" +
             "16-20km/h 120CHF Autobahn, 240CHF Ausserorts, Anzeige innerorts" + "\n" +
             "21-25km/h 260CHF auf der Autobahn, ansonsten Anzeige" +"\n" +
-            "25+km/h immer eine strafrechtliche Anzeige!";
+            "25+km/h immer eine strafrechtliche Anzeige!"+"\n" +
+            "Ab 50km/h (inner), 60km/h (ausser), 80kmh (Bahn)"+ "\n" +
+            "Mindestrfreiheitsstrafe 1 Jahr, Führerscheinentzug 2 Jahre bis lebenslang";
 
 
     public static String AT_FINES = "Stand: 2017\n"+
