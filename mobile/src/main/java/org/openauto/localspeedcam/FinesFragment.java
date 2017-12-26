@@ -7,10 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class LogFragment extends CarFragment {
-    private final String TAG = "DemoFragment";
+public class FinesFragment extends CarFragment {
+    private final String TAG = "FinesFragment";
 
-    public LogFragment() {
+    public FinesFragment() {
         // Required empty public constructor
     }
 
@@ -25,14 +25,14 @@ public class LogFragment extends CarFragment {
         super.onAttach(context);
         Log.i(TAG, "onAttach");
 
-        setTitle(R.string.demo_title);
+        setTitle(R.string.menu_fines_label);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
-        return inflater.inflate(R.layout.fragment_log, container, false);
+        return inflater.inflate(R.layout.fragment_fines, container, false);
     }
 
     @Override

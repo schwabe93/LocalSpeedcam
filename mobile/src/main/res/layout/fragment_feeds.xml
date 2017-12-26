@@ -8,7 +8,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:orientation="vertical"
-    tools:showIn="@layout/preview_demo">
+    tools:showIn="@layout/fragment_feeds_preview">
 
     <ScrollView
         android:layout_width="match_parent"

@@ -5,6 +5,6 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <include layout="@layout/fragment_demo" />
+    <include layout="@layout/fragment_fines" />
 
 </FrameLayout>

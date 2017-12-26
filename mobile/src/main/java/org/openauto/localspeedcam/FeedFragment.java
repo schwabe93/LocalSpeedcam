@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class DemoFragment extends CarFragment {
-    private final String TAG = "DemoFragment";
+public class FeedFragment extends CarFragment {
 
-    public DemoFragment() {
+    private final String TAG = this.getClass().getSimpleName();
+
+    public FeedFragment() {
         // Required empty public constructor
     }
 
@@ -25,14 +26,14 @@ public class DemoFragment extends CarFragment {
         super.onAttach(context);
         Log.i(TAG, "onAttach");
 
-        setTitle(R.string.demo_title);
+        setTitle(R.string.app_name);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.i(TAG, "onCreateView");
-        return inflater.inflate(R.layout.fragment_demo, container, false);
+        return inflater.inflate(R.layout.fragment_feeds, container, false);
     }
 
     @Override

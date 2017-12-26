@@ -16,9 +16,22 @@ public class MainMenuHandler {
                 for(TrafficModule module : TrafficModule.getFeedList()){
                     if(name.equals(module.getClass().getSimpleName())){
                         activity.setCurrentTrafficModule(module);
-                        new NetworkReaderTask().execute(activity, activity.getCurrentTrafficModule());
+                        if(!activity.getCurrentFragmentTag().equals("FRAGMENT_FEEDS")){
+                            activity.switchToFragment("FRAGMENT_FEEDS");
+                        } else {
+                            activity.updateFeedsFragment();
+                        }
                         return;
                     }
+                }
+                if(name.endsWith("_FINES")){
+                    activity.setCurrentCatalogCountry(name.substring(0,2));
+                    if(!activity.getCurrentFragmentTag().equals("FRAGMENT_FINES")){
+                        activity.switchToFragment("FRAGMENT_FINES");
+                    } else {
+                        activity.updateFineFragment();
+                    }
+                    return;
                 }
                 if("MENU_REFRESH".equals(name)){
                     new NetworkReaderTask().execute(activity, activity.getCurrentTrafficModule());

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 
 import com.google.android.apps.auto.sdk.CarActivity;
 import com.google.android.apps.auto.sdk.CarUiController;
@@ -11,17 +12,16 @@ import com.google.android.apps.auto.sdk.MenuController;
 import com.google.android.apps.auto.sdk.MenuItem;
 import com.google.android.apps.auto.sdk.StatusBarController;
 
+import org.openauto.localspeedcam.fines.Fines;
 import org.openauto.localspeedcam.modules.RadioRT1;
 import org.openauto.localspeedcam.modules.TrafficModule;
 import org.openauto.localspeedcam.utils.IOHandler;
 
 public class MainCarActivity extends CarActivity implements AsyncResponse {
 
-    private static final String FRAGMENT_DEMO = "demo";
-    private static final String FRAGMENT_LOG = "log";
-    private static final String CURRENT_FRAGMENT_KEY = "app_current_fragment";
     private String mCurrentFragmentTag;
     private TrafficModule currentTrafficModule;
+    private String currentCatalogCountry;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -33,32 +33,41 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
         carUiController.getStatusBarController().showTitle();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        DemoFragment demoFragment = new DemoFragment();
-        LogFragment logFragment = new LogFragment();
+
+        FeedFragment feedFragment = new FeedFragment();
+        FinesFragment finesFragment = new FinesFragment();
+
         fragmentManager.beginTransaction()
-                .add(R.id.fragment_container, demoFragment, FRAGMENT_DEMO)
-                .detach(demoFragment)
-                .add(R.id.fragment_container, logFragment, FRAGMENT_LOG)
-                .detach(logFragment)
+                .add(R.id.fragment_container, feedFragment, "FRAGMENT_FEEDS")
+                .detach(feedFragment)
+                .add(R.id.fragment_container, finesFragment, "FRAGMENT_FINES")
+                .detach(finesFragment)
                 .commitNow();
 
-        String initialFragmentTag = FRAGMENT_DEMO;
-        if (bundle != null && bundle.containsKey(CURRENT_FRAGMENT_KEY)) {
-            initialFragmentTag = bundle.getString(CURRENT_FRAGMENT_KEY);
+        String initialFragmentTag = "FRAGMENT_FEEDS";
+        if (bundle != null && bundle.containsKey("CURRENT_FRAGMENT_KEY")) {
+            initialFragmentTag = bundle.getString("CURRENT_FRAGMENT_KEY");
         }
         switchToFragment(initialFragmentTag);
 
         ListMenuAdapter mainMenu = new ListMenuAdapter();
         mainMenu.setCallbacks(MainMenuHandler.createMenuCallbacks(this));
 
+        /*
         mainMenu.addMenuItem("MENU_HOME", new MenuItem.Builder()
                 .setTitle(getString(R.string.menu_unlock_phone))
                 .setIconResId(R.drawable.ic_lock_open_black_24dp)
                 .setType(MenuItem.Type.ITEM)
                 .build());
+        */
         mainMenu.addMenuItem("MENU_FEEDS", new MenuItem.Builder()
                 .setTitle(getString(R.string.menu_feeds_label))
                 .setIconResId(R.drawable.ic_rss_feed_black_24dp)
+                .setType(MenuItem.Type.SUBMENU)
+                .build());
+        mainMenu.addMenuItem("MENU_FINES", new MenuItem.Builder()
+                .setTitle(getString(R.string.menu_fines_label))
+                .setIconResId(R.drawable.ic_cash_multiple)
                 .setType(MenuItem.Type.SUBMENU)
                 .build());
         mainMenu.addMenuItem("MENU_REFRESH", new MenuItem.Builder()
@@ -69,17 +78,37 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
 
         addAppStartShortcut(mainMenu);
 
+        //Build menu for radio feeds
         ListMenuAdapter feedsMenu = new ListMenuAdapter();
         feedsMenu.setCallbacks(MainMenuHandler.createMenuCallbacks(this));
-
         for(TrafficModule module : TrafficModule.getFeedList()){
             feedsMenu.addMenuItem(module.getClass().getSimpleName(), new MenuItem.Builder()
                     .setTitle(module.getFeedTitle())
                     .setType(MenuItem.Type.ITEM)
                     .build());
         }
-
         mainMenu.addSubmenu("MENU_FEEDS", feedsMenu);
+
+        //Build menu for fine catalog
+        ListMenuAdapter finesMenu = new ListMenuAdapter();
+        finesMenu.setCallbacks(MainMenuHandler.createMenuCallbacks(this));
+        finesMenu.addMenuItem("DE_FINES", new MenuItem.Builder()
+                .setTitle(getString(R.string.country_name_de))
+                .setIconResId(R.drawable.ic_de)
+                .setType(MenuItem.Type.ITEM)
+                .build());
+        finesMenu.addMenuItem("AT_FINES", new MenuItem.Builder()
+                .setTitle(getString(R.string.country_name_at))
+                .setIconResId(R.drawable.ic_at)
+                .setType(MenuItem.Type.ITEM)
+                .build());
+        finesMenu.addMenuItem("CH_FINES", new MenuItem.Builder()
+                .setTitle(getString(R.string.country_name_ch))
+                .setIconResId(R.drawable.ic_ch)
+                .setType(MenuItem.Type.ITEM)
+                .build());
+        mainMenu.addSubmenu("MENU_FINES", finesMenu);
+
 
         MenuController menuController = carUiController.getMenuController();
         menuController.setRootMenuAdapter(mainMenu);
@@ -112,6 +141,18 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
 
     }
 
+    public String getCurrentFragmentTag() {
+        return mCurrentFragmentTag;
+    }
+
+    public String getCurrentCatalogCountry() {
+        return currentCatalogCountry;
+    }
+
+    public void setCurrentCatalogCountry(String currentCatalogCountry) {
+        this.currentCatalogCountry = currentCatalogCountry;
+    }
+
     public void setCurrentTrafficModule(TrafficModule trafficModule){
         this.currentTrafficModule = trafficModule;
     }
@@ -125,7 +166,7 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
 
     @Override
     public void onSaveInstanceState(Bundle bundle) {
-        bundle.putString(CURRENT_FRAGMENT_KEY, mCurrentFragmentTag);
+        bundle.putString("CURRENT_FRAGMENT_KEY", mCurrentFragmentTag);
         super.onSaveInstanceState(bundle);
     }
 
@@ -135,7 +176,7 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
         switchToFragment(mCurrentFragmentTag);
     }
 
-    private void switchToFragment(String tag) {
+    public void switchToFragment(String tag) {
         if (tag.equals(mCurrentFragmentTag)) {
             return;
         }
@@ -156,8 +197,33 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
         @Override
         public void onFragmentStarted(FragmentManager fm, Fragment f) {
             updateStatusBarTitle();
+            if(f instanceof FeedFragment){
+                Log.i("MainCarActivity", "updateFeedsFragment");
+                updateFeedsFragment();
+            }
+            if(f instanceof FinesFragment){
+                Log.i("MainCarActivity", "updateFineFragment");
+                updateFineFragment();
+            }
         }
     };
+
+    @SuppressWarnings("StringBufferReplaceableByString")
+    public void updateFineFragment() {
+        android.widget.TextView textview_fines = (android.widget.TextView) findViewById(R.id.textview_fines);
+        if(currentCatalogCountry.equals("DE")){
+            textview_fines.setText(Fines.DE_FINES);
+        }
+        if(currentCatalogCountry.equals("AT")){
+            textview_fines.setText(Fines.AT_FINES);
+        }
+        if(currentCatalogCountry.equals("CH")){
+            textview_fines.setText(Fines.CH_FINES);
+        }
+    }
+    public void updateFeedsFragment() {
+        new NetworkReaderTask().execute(this, getCurrentTrafficModule());
+    }
 
     public void updateStatusBarTitle() {
         CarFragment fragment = (CarFragment) getSupportFragmentManager().findFragmentByTag(mCurrentFragmentTag);
@@ -166,9 +232,12 @@ public class MainCarActivity extends CarActivity implements AsyncResponse {
 
     @Override
     public void processFinish(String feedTitle, String output) {
+        //set content
         android.widget.TextView feedid = (android.widget.TextView) findViewById(R.id.feed_id);
         feedid.setText(feedTitle);
         android.widget.TextView feedcontent = (android.widget.TextView) findViewById(R.id.feed_content);
         feedcontent.setText(output);
     }
+
+
 }
