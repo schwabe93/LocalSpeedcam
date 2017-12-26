@@ -17,7 +17,11 @@ public class Fines {
             AUSSERORTS + " ab 21km/h 1 Punkt + 70€" + "\n" +
             AUSSERORTS + " ab 41km/h 2 Punkte + 160€, 1 Monat Fahrverbot" + "\n" +
             AUSSERORTS + " ab 61km/h 2 Punkte + 280€, 2 Monate Fahrverbot" + "\n" +
-            AUSSERORTS + " ab 71km/h 2 Punkte + 600€, 3 Monate Fahrverbot";
+            AUSSERORTS + " ab 71km/h 2 Punkte + 600€, 3 Monate Fahrverbot" + "\n" +
+            "Abstandsverstöße ab 80km/h maximal Punkte, ab 100km/h droht Fahrverbot!" + "\n" +
+            "Telefonieren während der Fahrt ohne Freisprechanlage: 100€ + 1 Punkt" + "\n" +
+            " - mit Gefährdung 150€ + 2 Punkte + 1 Monat Fahrverbot" + "\n"+
+            " - mit Sachbeschädigung 200€ + 2 Punkte + 1 Monat Fahrverbot";
 
     public static String CH_FINES = "Stand: 2017\n"+
             "1-5km/h 40CHF" + INNERORTS + AUSSERORTS + "\n" +
