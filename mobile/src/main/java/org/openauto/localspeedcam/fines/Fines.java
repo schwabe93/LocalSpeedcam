@@ -27,7 +27,7 @@ public class Fines {
             "21-25km/h 260CHF auf der Autobahn, ansonsten Anzeige" +"\n" +
             "25+km/h immer eine strafrechtliche Anzeige!"+"\n" +
             "Ab 50km/h (inner), 60km/h (ausser), 80km/h (Bahn)"+ "\n" +
-            "Mindestfreiheitsstrafe 1 Jahr, Führerscheinentzug 2 Jahre bis lebenslang";
+            "Mindestfreiheitsstrafe 1 Jahr, Entzug der Fahrberechtigung 2 Jahre bis lebenslang";
 
 
     public static String AT_FINES = "Stand: 2017\n"+
