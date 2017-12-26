@@ -16,6 +16,7 @@ public abstract class TrafficModule {
         modules.add(new RadioRT1());
         modules.add(new AntenneBayern());
         modules.add(new HitRadioFFH());
+        modules.add(new RadioTon());
         return modules;
     }
 

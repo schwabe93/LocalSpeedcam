@@ -3,7 +3,7 @@
     <string name="car_service_name">Local Speedcam</string>
     <string name="menu_refresh_label">Refresh</string>
     <string name="menu_feeds_label">Feeds</string>
-    <string name="menu_fines_label">Catalogue of fines</string>
+    <string name="menu_fines_label">Fines information</string>
     <string name="menu_unlock_phone">Unlock phone</string>
     <string name="menu_exlap_stats_log_title">Radio RT1</string>
     <string name="menu_test_notification_title">Antenne Bayern</string>
