@@ -11,6 +11,8 @@ import java.util.List;
  */
 public abstract class TrafficModule {
 
+    public static int DEFAULT_READ_TIMEOUT = 8000;
+
     public static List<TrafficModule> getFeedList(){
         List<TrafficModule> modules = new ArrayList<>();
         modules.add(new RadioRT1());

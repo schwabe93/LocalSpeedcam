@@ -14,7 +14,7 @@ public class RadioTon extends TrafficModule {
         StringBuilder builder = new StringBuilder();
 
         //This code has to be adapted for your local speed cam source
-        Document doc = Jsoup.parse(new URL("https://www.radioton.de/resources/rss-blitzer.xml"), 5000);
+        Document doc = Jsoup.parse(new URL("https://www.radioton.de/resources/rss-blitzer.xml"), DEFAULT_READ_TIMEOUT);
         Elements container = doc.getElementsByTag("rss");
         for (Element child : container.get(0).children()) {
             builder.append(child.text());

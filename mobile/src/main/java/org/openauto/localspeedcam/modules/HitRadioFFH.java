@@ -14,7 +14,7 @@ public class HitRadioFFH extends TrafficModule {
     public String getFeedContent() throws IOException {
         StringBuilder builder = new StringBuilder();
         //This code has to be adapted for your local speed cam source
-        Document doc = Jsoup.parse(new URL("https://www.ffh.de/verkehr/blitzer.html"), 5000);
+        Document doc = Jsoup.parse(new URL("https://www.ffh.de/verkehr/blitzer.html"), DEFAULT_READ_TIMEOUT);
         Elements container = doc.getElementsByClass("tabContent");
         for (Element child : container.get(0).children()) {
             builder.append(child.text());

@@ -14,7 +14,7 @@ public class RadioRT1 extends TrafficModule{
         StringBuilder builder = new StringBuilder();
 
         //This code has to be adapted for your local speed cam source
-        Document doc = Jsoup.parse(new URL("https://www.rt1.de/verkehr/"), 5000);
+        Document doc = Jsoup.parse(new URL("https://www.rt1.de/verkehr/"), DEFAULT_READ_TIMEOUT);
         Elements container = doc.getElementsByClass("element rt1 trafficMessages");
         Elements speed_cams = container.get(0).getElementsByClass("speed_cams");
         for (Element child : speed_cams.tagName("div").get(0).children()) {
