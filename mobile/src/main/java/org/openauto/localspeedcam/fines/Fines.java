@@ -26,8 +26,8 @@ public class Fines {
             "16-20km/h 120CHF Autobahn, 240CHF Ausserorts, Anzeige innerorts" + "\n" +
             "21-25km/h 260CHF auf der Autobahn, ansonsten Anzeige" +"\n" +
             "25+km/h immer eine strafrechtliche Anzeige!"+"\n" +
-            "Ab 50km/h (inner), 60km/h (ausser), 80kmh (Bahn)"+ "\n" +
-            "Mindestrfreiheitsstrafe 1 Jahr, Führerscheinentzug 2 Jahre bis lebenslang";
+            "Ab 50km/h (inner), 60km/h (ausser), 80km/h (Bahn)"+ "\n" +
+            "Mindestfreiheitsstrafe 1 Jahr, Führerscheinentzug 2 Jahre bis lebenslang";
 
 
     public static String AT_FINES = "Stand: 2017\n"+
