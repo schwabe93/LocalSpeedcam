@@ -17,12 +17,12 @@ public class RadioRT1 extends TrafficModule{
         Document doc = Jsoup.parse(new URL("https://www.rt1.de/verkehr/"), DEFAULT_READ_TIMEOUT);
         Elements container = doc.getElementsByClass("element rt1 trafficMessages");
         Elements speed_cams = container.get(0).getElementsByClass("speed_cams");
-        for (Element child : speed_cams.tagName("div").get(0).children()) {
+        for (Element child : speed_cams.get(0).getElementsByTag("li")) {
             builder.append(child.text());
             builder.append("\n");
         }
         Elements traffic = container.get(0).getElementsByClass("traffic");
-        for (Element child : traffic.tagName("div").get(0).children()) {
+        for (Element child : traffic.get(0).getElementsByTag("li")) {
             builder.append(child.text());
             builder.append("\n");
         }
