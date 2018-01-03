@@ -19,6 +19,8 @@ public abstract class TrafficModule {
         modules.add(new AntenneBayern());
         modules.add(new HitRadioFFH());
         modules.add(new RadioTon());
+        modules.add(new Landeswelle());
+        modules.add(new Radiosaw());
         return modules;
     }
 
@@ -30,3 +32,4 @@ public abstract class TrafficModule {
     public abstract String getFeedContent() throws IOException, JSONException;
     public abstract String getFeedTitle();
 }
+
