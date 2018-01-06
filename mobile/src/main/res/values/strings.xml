@@ -5,11 +5,12 @@
     <string name="menu_feeds_label">Feeds</string>
     <string name="menu_fines_label">Fines information</string>
     <string name="menu_unlock_phone">Unlock phone</string>
-    <string name="menu_exlap_stats_log_title">Radio RT1</string>
-    <string name="menu_test_notification_title">Antenne Bayern</string>
     <string name="no_feed_label">No feed selected</string>
     <string name="no_content_label">No content</string>
     <string name="country_name_de">Germany</string>
     <string name="country_name_ch">Switzerland</string>
     <string name="country_name_at">Austria</string>
+    <string name="title_shortcut">Title for app shortcut</string>
+    <string name="package_shortcut">Package for app shortcut</string>
+    <string name="save_shortcut">Save shortcut settings</string>
 </resources>

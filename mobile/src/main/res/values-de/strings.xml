@@ -5,11 +5,12 @@
     <string name="menu_feeds_label">Quellen</string>
     <string name="menu_fines_label">Bußgeldkatalog</string>
     <string name="menu_unlock_phone">Handy entsperren</string>
-    <string name="menu_exlap_stats_log_title">Radio RT1</string>
-    <string name="menu_test_notification_title">Antenne Bayern</string>
     <string name="no_feed_label">Keine Quelle ausgewählt</string>
     <string name="no_content_label">Kein Inhalt</string>
     <string name="country_name_de">Deutschland</string>
     <string name="country_name_ch">Schweiz</string>
     <string name="country_name_at">Österreich</string>
+    <string name="title_shortcut">Bezeichung für Verknüpfung</string>
+    <string name="package_shortcut">Paket für Verknüpfung</string>
+    <string name="save_shortcut">Speichern</string>
 </resources>
