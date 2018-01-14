@@ -26,6 +26,9 @@ public class RadioRT1 extends TrafficModule{
             builder.append(child.text());
             builder.append("\n");
         }
+        if(builder.toString().isEmpty()){
+            builder.append("Keine Blitzer oder Verkehrsmeldungen");
+        }
         return builder.toString();
 
     }
